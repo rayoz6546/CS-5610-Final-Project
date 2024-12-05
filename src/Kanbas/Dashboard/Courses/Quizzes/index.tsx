@@ -214,7 +214,7 @@ export default function Quizzes({newQuizId, quizzes, setPublished, setNewPublish
                                                                 className="me-2 text-primary"
                                                                 onClick={() =>
                                                                     navigate(
-                                                                        `/Kanbas/Courses/${cid}/Quizzes/${quiz._id}/Details`
+                                                                        `/Kanbas/Courses/${cid}/Quizzes/${quiz._id}/Editor/Details`
                                                                     )
                                                                 }
                                                                 style={{ cursor: "pointer" }}
