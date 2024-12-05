@@ -12,7 +12,7 @@ export default function KanbasNavigation() {
   const links = [
     { label: "Dashboard", path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
     { label: "Courses",   path: "/Kanbas/Dashboard", icon: LiaBookSolid },
-    { label: "Github Client",      path: "https://github.com/Nakul-27/CS-5610-Final-Project.git",             icon: FaGithub },
+    { label: "Github Client",      path: "https://github.com/rayoz6546/CS-5610-Final-Project.git",             icon: FaGithub },
     { label: "Github Server",      path: "https://github.com/rayoz6546/CS-5610-Final-Project-server.git",             icon: FaGithub },
   ];
 
