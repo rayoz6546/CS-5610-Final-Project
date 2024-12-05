@@ -27,7 +27,7 @@ export default function EditorNavigation({newQuizId, quizzes, setPublished, setN
     const [setQuizPoints, setNewQuizPoints] = useState(quiz ? quiz.points : "0")
     const [setQuizNumberQuestions, setNewQuizNumberQuestions] = useState(quiz ? quiz.number_questions : "0")
     const [setQuizScore, setNewQuizScore] = useState(quiz ? quiz.score : "")
-    const [setQuizType, setNewQuizType] = useState(quiz ? quiz.type : "Graded Quiz")
+    const [setQuizType, setNewQuizType] = useState(quiz ? quiz.quiz_type : "Graded Quiz")
     const [setQuizAssignmentGroup, setNewQuizAssignmentGroup] = useState(quiz ? quiz.assignment_group : "QUIZZES")
     const [setQuizShuffle, setNewQuizShuffle] = useState(quiz ? quiz.shuffle_answers : true)
     const [setQuizTimeLimit, setNewQuizTimeLimit] = useState(quiz ? quiz.time_limit : "20")
