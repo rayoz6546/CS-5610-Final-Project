@@ -158,9 +158,10 @@ export default function Quizzes({newQuizId, quizzes}:{newQuizId:any, quizzes:any
                             <ProtectedContent>{quizzes
                                     .filter((quiz: any) => quiz.course === cid)
                                     .map((quiz: any) => (
+                                        
                                         <li className="wd-assignment list-group-item p-3 ps-1 d-flex align-items-center">
                                             <div className="d-flex align-items-center">
-
+                           
                                                 <IoRocketOutline className="ms-2 me-3 fs-3 text-success" />
                                                 <div className={`wd-${quiz._id}`}>
                                                     <a className="wd-quiz-link" href={`#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}`}>

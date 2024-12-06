@@ -242,12 +242,12 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
                 <div className="row mt-2 mb-4">
                     <div className="col d-flex justify-content-center">
                             <button className="btn btn-secondary rounded-1 me-2" type="submit" onClick={()=> {handleCancelQuiz()}}>Cancel</button>
-                        <Link to={`/Kanbas/Courses/${cid}/Quizzes`}>
+                        {/* <Link to={`/Kanbas/Courses/${cid}/Quizzes/${quiz_id}`}> */}
                             <button className="btn btn-danger rounded-1 me-2" type="submit" onClick = {()=>{setNewPublished(false); handleUpdateQuiz(false)}}>Save</button>
-                        </Link>
-                        <Link to={`/Kanbas/Courses/${cid}/Quizzes`}>
+                        {/* </Link> */}
+                        {/* <Link to={`/Kanbas/Courses/${cid}/Quizzes`}> */}
                             <button className="btn btn-danger rounded-1" type="submit" onClick = {()=>{setNewPublished(true); handleUpdateQuiz(true)}}>Save & Publish</button>
-                        </Link>
+                        {/* </Link> */}
                     </div>
                 </div>
 

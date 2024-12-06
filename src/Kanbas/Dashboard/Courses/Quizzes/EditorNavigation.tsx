@@ -4,7 +4,7 @@ import QuizEditorDetails from "./QuizEditorDetails"
 import QuizEditorQuestions from "./QuizEditorQuestions"
 import { Navigate, Route, Routes, useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { addQuiz,updateQuiz } from "./quizzesReducer";
+import { addQuiz,setQuizzes,updateQuiz } from "./quizzesReducer";
 import { setQuestions } from "./questionsReducer";
 import * as coursesClient from "../client";
 import * as quizzesClient from "../Quizzes/client";
@@ -51,6 +51,16 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
 
     const { questions } = useSelector((state: any) => state.questionsReducer); 
 
+    const quiz_id = qid || newQuizId
+
+    const fetchQuizzes = async () => {
+        const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
+ 
+        dispatch(setQuizzes(quizzes));
+
+        };
+        
+
     const fetchQuestions = async () => {
         const questions = await questionsClient.fetchQuestions(qid as string);
         dispatch(setQuestions(questions));
@@ -93,7 +103,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
 
         if (quiz) {
                 const updatedQuiz = {
-                _id: qid,
+                ...quiz,
                 title: setQuizTitle,
                 course: cid,
                 availability: setQuizAvailability,
@@ -120,9 +130,16 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
 
             await quizzesClient.updateQuiz(updatedQuiz);
             dispatch(updateQuiz(updatedQuiz));
+            if (published) { 
+                navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+            }
+            else {
+                navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}`);
+            }
+         
         } else {
                 const newQuiz = {                
-                _id: newQuizId,
+                // _id: newQuizId,
                 title: setQuizTitle,
                 course: cid,
                 availability: setQuizAvailability,
@@ -149,10 +166,19 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
 
             const new_quiz = await coursesClient.createQuizForCourse(cid as string, newQuiz);
             dispatch(addQuiz(new_quiz));
+
+            if (published) { 
+                navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+            }
+            else {
+                navigate(`/Kanbas/Courses/${cid}/Quizzes/${new_quiz._id}`);
+            }
+            
         }
         
         dispatch(setQuestions(stagedQuestions)); 
 
+        await fetchQuizzes()
 
 
     

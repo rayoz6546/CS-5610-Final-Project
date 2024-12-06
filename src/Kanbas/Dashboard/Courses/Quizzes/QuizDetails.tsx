@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedContent from "../../../Account/ProtectedContent";
 import ProtectedContentEnrollment from "../../../Account/ProtectedContentEnrollment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as resultsClient from "./resultsClient";
 import * as coursesClient from "../client";
 import { setResults } from "./resultsReducer";
@@ -18,6 +18,8 @@ import * as questionsClient from "./questionsClient";
 export default function QuizDetails() {
     const { cid, qid } = useParams()
     const { quizzes } = useSelector((state: any) => state.quizzesReducer);
+    const quiz = quizzes.find((q: any) => q.course === cid && q._id === qid)
+
     const dispatch = useDispatch()
 
     const { isStudentView, toggleView } = useViewContext();
@@ -35,18 +37,7 @@ export default function QuizDetails() {
         dispatch(setResults(results))
      }
  
- 
-     const fetchQuizzes = async () => {
-         const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
-  
-         dispatch(setQuizzes(quizzes));
- 
-         };
-         
-        const fetchQuestions = async () => {
-        const questions = await questionsClient.fetchQuestions(qid as string);
-        dispatch(setQuestions(questions));
-        };
+
 
      useEffect(() => {
  
@@ -58,9 +49,12 @@ export default function QuizDetails() {
 
 
 
+
+
     return (
         <>
-        
+
+
             <ProtectedContentEnrollment>
 
 
@@ -69,8 +63,6 @@ export default function QuizDetails() {
                     .filter((quiz: any) => quiz._id == qid)
                     .map((quiz: any) => (
                         <>
-                       
-
                             <div className="row">
                                 <h4 style={{ fontWeight: "bold" }}> {`${quiz.title}`} </h4>
                             </div>
@@ -159,10 +151,11 @@ export default function QuizDetails() {
                         <hr />
 
                         {quizzes
-                            .filter((quiz: any) => quiz.course == cid)
-                            .filter((quiz: any) => quiz._id == qid)
+                            .filter((q: any) => q.course === cid)
+                            .filter((q: any) => q._id === qid)
                             .map((quiz: any) => (
                                 <>
+                                
                                     <div className="row">
                                         <h4 style={{ fontWeight: "bold" }}> {`${quiz.title}`} </h4>
                                     </div>

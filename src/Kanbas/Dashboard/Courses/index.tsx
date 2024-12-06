@@ -49,7 +49,7 @@ export default function Courses({ courses }: {
   //   fetchQuizzes();
 
 
-  // }, []);
+  // }, [cid, quizzes]);
   
   return (
     <div id="wd-courses">
@@ -68,7 +68,7 @@ export default function Courses({ courses }: {
               <Route path="Assignments/:id" element={<AssignmentEditor />} />
               <Route path="Assignments/new" element={<AssignmentEditor />} />
               <Route path="Quizzes" element={<Quizzes newQuizId={newQuizId} quizzes={quizzes}/>} />
-              <Route path="Quizzes/:qid" element={<QuizDetails />} />
+              <Route path="Quizzes/:qid" element={<QuizDetails/>} />
               <Route path="Quizzes/:qid/Editor/*" element={<EditorNavigation newQuizId={newQuizId} quizzes={quizzes}/>} />
               <Route path="Quizzes/:qid/Preview/*" element={<QuizPreview/>} />
               <Route path="Quizzes/:qid/PreviewResults" element={<QuizPreviewResults />} />
