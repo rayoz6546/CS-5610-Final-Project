@@ -50,10 +50,12 @@ export default function QuizDetails() {
 
      useEffect(() => {
  
+        if (result) {
+        fetchResults()}
 
-        fetchResults()
          
      }, []);
+
 
 
     return (

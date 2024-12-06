@@ -12,7 +12,7 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
     setQuizNumberQuestions, setQuizShowCorrectAnswers, setQuizAccessCode, setQuizOneQuestionAtATime, setQuizWebcamRequired, setQuizAvailability,
     setQuizLockQuestions, setQuizDescription, setNewQuizTitle, setNewQuizAvailableFrom, setNewQuizAvailableUntil, setNewQuizDueDate,setNewQuizScore,
     setNewQuizPoints, setNewQuizNumberAttempts, setNewQuizType, setNewQuizAssignmentGroup, setNewQuizShuffle, setNewQuizTimeLimit, setNewQuizMultipleAttempts,
-    setNewQuizNumberQuestions, setNewQuizShowCorrectAnswers, setNewQuizAccessCode, setNewQuizOneQuestionAtATime, setNewQuizWebcamRequired, setNewQuizAvailability,
+    setNewQuizNumberQuestions, setNewQuizShowCorrectAnswers, setNewQuizAccessCode, setNewQuizOneQuestionAtATime, setNewQuizWebcamRequired, setNewQuizAvailability,setPublished, setNewPublished,
     setNewQuizLockQuestions, setNewQuizDescription, quizzes, newQuizId, handleUpdateQuiz, handleCancelQuiz}:{
     setQuizTitle:any, setQuizAvailableFrom:any, setQuizAvailableUntil:any, setQuizDueDate:any,setQuizScore:any,
     setQuizPoints:any, setQuizNumberAttempts:any, setQuizType:any, setQuizAssignmentGroup:any, setQuizShuffle:any, setQuizTimeLimit:any, setQuizMultipleAttempts:any,
@@ -20,13 +20,13 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
     setQuizLockQuestions:any, setQuizDescription:any, setQuizAvailability: any, setNewQuizAvailability:any,
     setNewQuizTitle:any, setNewQuizAvailableFrom:any, setNewQuizAvailableUntil:any, setNewQuizDueDate:any,setNewQuizScore:any,
     setNewQuizPoints:any, setNewQuizNumberAttempts:any, setNewQuizType:any, setNewQuizAssignmentGroup:any, setNewQuizShuffle:any, setNewQuizTimeLimit:any, setNewQuizMultipleAttempts:any,
-    setNewQuizNumberQuestions:any, setNewQuizShowCorrectAnswers:any, setNewQuizAccessCode:any, setNewQuizOneQuestionAtATime:any, setNewQuizWebcamRequired:any, 
-    setNewQuizLockQuestions:any, setNewQuizDescription:any, quizzes:any, newQuizId:any, handleUpdateQuiz:()=>void, handleCancelQuiz:()=>void
+    setNewQuizNumberQuestions:any, setNewQuizShowCorrectAnswers:any, setNewQuizAccessCode:any, setNewQuizOneQuestionAtATime:any, setNewQuizWebcamRequired:any, setPublished:any, setNewPublished:any,
+    setNewQuizLockQuestions:any, setNewQuizDescription:any, quizzes:any, newQuizId:any, handleUpdateQuiz:(b:boolean)=>void, handleCancelQuiz:()=>void
     }
 ) {
     const { cid, qid } = useParams()
   
-
+    const quiz_id = qid || newQuizId
 
     const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
 
@@ -243,7 +243,10 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
                     <div className="col d-flex justify-content-center">
                             <button className="btn btn-secondary rounded-1 me-2" type="submit" onClick={()=> {handleCancelQuiz()}}>Cancel</button>
                         <Link to={`/Kanbas/Courses/${cid}/Quizzes`}>
-                            <button className="btn btn-danger rounded-1" type="submit" onClick = {()=>{ handleUpdateQuiz()}}>Save</button>
+                            <button className="btn btn-danger rounded-1 me-2" type="submit" onClick = {()=>{setNewPublished(false); handleUpdateQuiz(false)}}>Save</button>
+                        </Link>
+                        <Link to={`/Kanbas/Courses/${cid}/Quizzes`}>
+                            <button className="btn btn-danger rounded-1" type="submit" onClick = {()=>{setNewPublished(true); handleUpdateQuiz(true)}}>Save & Publish</button>
                         </Link>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
     const [showQuestionInput, setShowQuestionInput] = useState(false);
 
     const [newQuestionTitle, setNewQuestionTitle] = useState("");
-    const [newQuestionType, setNewQuestionType] = useState("Select Question Type");
+    const [newQuestionType, setNewQuestionType] = useState("Multiple Choice");
     const [newQuestionPoints, setNewQuestionPoints] = useState("");
     const [newQuestionDescription, setNewQuestionDescription] = useState("");
     const [newQuestionAnswers, setNewQuestionAnswers] = useState<string[]>([""]);
@@ -36,11 +36,6 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
 
     const [correctAnswerIsList, setcorrectAnswerIsList] = useState(false);
 
-    // useEffect(() => {
-    //     if (quiz) {
-    //         setStagedQuestions([...quiz.questions]);
-    //     }
-    // }, [quiz]);
 
 //----------------------reducer functions for answers (adding/editing/deleting possible answers for each question)--------------//
     const handleAnswerChange = (index: number, value: string) => {
@@ -133,7 +128,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
     const resetQuestion = () => {
 
         setNewQuestionTitle("");
-        setNewQuestionType("Select Question Type")
+        setNewQuestionType("Multiple Choice")
         setNewQuestionPoints("");
         setNewQuestionDescription("");
         setNewQuestionAnswers([""]);
@@ -221,10 +216,9 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
 
 
                             <div className="col-auto">
-                                <select id="wd-question-type" className="form-select" value={newQuestionType} 
+                                <select id="wd-question-type" className="form-select" value={newQuestionType} defaultValue={"Multiple Choice"}
                
                                 onChange={(e) => {setNewQuestionAnswers([""]); setNewQuestionCorrectAnswer(""); setNewQuestionDescription(""); setNewQuestionType(e.target.value.toString())}}>
-                                    <option value="Select Question Type">Select Question Type</option>
                                     <option value="Multiple Choice">Multiple Choice</option>
                                     <option value="True or False">True or False</option>
                                     <option value="Fill in the Blank">Fill in the Blank</option>
@@ -239,7 +233,6 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
                         </div>
 
                         <hr />
-
 
                         {/* ---------------------------------------MULTIPLE CHOICE----------------------------------------- */}
 

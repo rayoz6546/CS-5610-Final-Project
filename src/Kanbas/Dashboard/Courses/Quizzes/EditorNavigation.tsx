@@ -11,7 +11,7 @@ import * as quizzesClient from "../Quizzes/client";
 import * as questionsClient from "../Quizzes/questionsClient";
 
 
-export default function EditorNavigation({newQuizId, quizzes, setPublished, setNewPublished}:{newQuizId:any, quizzes:any, setPublished:any, setNewPublished:any}) {
+export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, quizzes:any}) {
     const { cid, qid } = useParams()
 
     const quiz = quizzes.find((q:any) => q._id === qid && q.course === cid);
@@ -38,6 +38,7 @@ export default function EditorNavigation({newQuizId, quizzes, setPublished, setN
     const [setQuizOneQuestionAtATime, setNewQuizOneQuestionAtATime] = useState(quiz ? quiz.one_question_at_a_time : true)
     const [setQuizWebcamRequired, setNewQuizWebcamRequired] = useState(quiz ? quiz.webcam_required : false)
     const [setQuizLockQuestions, setNewQuizLockQuestions] = useState(quiz ? quiz.lock_questions_after_answering : false)
+    const [setPublished, setNewPublished] = useState(quiz ? quiz.published : false)
 
     const [setQuizDescription, setNewQuizDescription] = useState(quiz ? quiz.description : "")
     const [setQuizQuestions, setNewQuizQuestions] = useState(quiz ? quiz.questions : [])
@@ -78,13 +79,11 @@ export default function EditorNavigation({newQuizId, quizzes, setPublished, setN
         else {
             setStagedQuestions([])
         }
-
-        
     }
 
+    const handleUpdateQuiz = async (published:Boolean) => {
 
-    const handleUpdateQuiz = async () => {
-
+        
 
  
         const newQuizQuestions = stagedQuestions.length;
@@ -116,7 +115,7 @@ export default function EditorNavigation({newQuizId, quizzes, setPublished, setN
                 webcam_required: setQuizWebcamRequired,
                 lock_questions_after_answering: setQuizLockQuestions,
                 description: setQuizDescription,
-                published: setPublished,
+                published: published,
                 questions: stagedQuestions,}
 
             await quizzesClient.updateQuiz(updatedQuiz);
@@ -145,35 +144,12 @@ export default function EditorNavigation({newQuizId, quizzes, setPublished, setN
                 webcam_required: setQuizWebcamRequired,
                 lock_questions_after_answering: setQuizLockQuestions,
                 description: setQuizDescription,
-                published: setPublished,
+                published: published,
                 questions: stagedQuestions,}
 
             const new_quiz = await coursesClient.createQuizForCourse(cid as string, newQuiz);
             dispatch(addQuiz(new_quiz));
         }
-    
-        // // Commit questions to the server
-        // const currentQuestions = questions.filter((q:any) => q.quizId === qid);
-    
-        // // Add or update questions
-        // for (const question of stagedQuestions) {
-
-        //     if (!currentQuestions.find((q:any) => q._id === question._id)) {
-        //         const new_q = await questionsClient.createQuestion(qid as string, question); // New question
-        //         dispatch(addQuestion(new_q))
-        //     } else {
-        //         await questionsClient.updateQuestion(question); // Update existing question
-        //         dispatch(updateQuestion(question))
-        //     }
-        // }
-    
-        // // Delete removed questions
-        // for (const question of currentQuestions) {
-        //     if (!stagedQuestions.find((q) => q._id === question._id)) {
-        //         await questionsClient.deleteQuestion(question._id);
-        //         dispatch(deleteQuestion(question._id))
-        //     }
-        // }
         
         dispatch(setQuestions(stagedQuestions)); 
 
@@ -206,7 +182,7 @@ export default function EditorNavigation({newQuizId, quizzes, setPublished, setN
                 setQuizTitle={setQuizTitle} setQuizAvailableFrom={setQuizAvailableFrom} setQuizAvailableUntil={setQuizAvailableUntil} setQuizDueDate={setQuizDueDate} setQuizScore={setQuizScore}
                 setQuizPoints={setQuizPoints} setQuizNumberAttempts={setQuizNumberAttempts} setQuizType={setQuizType} setQuizAssignmentGroup={setQuizAssignmentGroup} setQuizShuffle={setQuizShuffle} setQuizTimeLimit={setQuizTimeLimit} setQuizMultipleAttempts={setQuizMultipleAttempts}
                 setQuizNumberQuestions={setQuizNumberQuestions} setQuizShowCorrectAnswers={setQuizShowCorrectAnswers} setQuizAccessCode={setQuizAccessCode} setQuizOneQuestionAtATime={setQuizOneQuestionAtATime} setQuizWebcamRequired={setQuizWebcamRequired} 
-                setQuizLockQuestions={setQuizLockQuestions} setQuizDescription={setQuizDescription} setQuizAvailability={setQuizAvailability}
+                setQuizLockQuestions={setQuizLockQuestions} setQuizDescription={setQuizDescription} setQuizAvailability={setQuizAvailability} setPublished={setPublished} setNewPublished={setNewPublished}
                 setNewQuizTitle={setNewQuizTitle} setNewQuizAvailableFrom={setNewQuizAvailableFrom} setNewQuizAvailableUntil={setNewQuizAvailableUntil} setNewQuizDueDate={setNewQuizDueDate} setNewQuizScore={setNewQuizScore}
                 setNewQuizPoints={setNewQuizPoints} setNewQuizNumberAttempts={setNewQuizNumberAttempts} setNewQuizType={setNewQuizType} setNewQuizAssignmentGroup={setNewQuizAssignmentGroup} setNewQuizShuffle={setNewQuizShuffle} setNewQuizTimeLimit={setNewQuizTimeLimit} setNewQuizMultipleAttempts={setNewQuizMultipleAttempts}
                 setNewQuizNumberQuestions={setNewQuizNumberQuestions} setNewQuizShowCorrectAnswers={setNewQuizShowCorrectAnswers} setNewQuizAccessCode={setNewQuizAccessCode} setNewQuizOneQuestionAtATime={setNewQuizOneQuestionAtATime} setNewQuizWebcamRequired={setNewQuizWebcamRequired} 

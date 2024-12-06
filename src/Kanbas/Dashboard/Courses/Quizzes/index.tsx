@@ -24,7 +24,7 @@ import { GrEdit } from "react-icons/gr";
 import { setResults } from "./resultsReducer";
 import * as resultsClient from "./resultsClient";
 
-export default function Quizzes({newQuizId, quizzes, setPublished, setNewPublished}:{newQuizId:any, quizzes:any, setPublished:any, setNewPublished:any}) {
+export default function Quizzes({newQuizId, quizzes}:{newQuizId:any, quizzes:any}) {
     const { cid } = useParams()
     const { isStudentView, toggleView } = useViewContext();
     const navigate = useNavigate();
@@ -38,7 +38,15 @@ export default function Quizzes({newQuizId, quizzes, setPublished, setNewPublish
     const {questions} = useSelector((state:any)=> state.questionsReducer)
 
 
+    const toggleAllIcons = () => {
 
+        const allCurrentlyVisible = quizzes.every((quiz:any) => visibleIcons[quiz._id]);
+        const newVisibility = quizzes.reduce((acc:any, quiz:any) => {
+            acc[quiz._id] = !allCurrentlyVisible; 
+            return acc;
+        }, {});
+        setVisibleIcons(newVisibility);
+    };
 
     const toggleIcons = (quizId: string) => {
         setVisibleIcons((prev) => ({
@@ -100,16 +108,17 @@ export default function Quizzes({newQuizId, quizzes, setPublished, setNewPublish
     
 
     const handlePublishToggle = async (quiz:any) => {
-        setNewPublished((prevState: any) => !prevState); 
-        await quizzesClient.updateQuiz({...quiz, published: setPublished});
-        dispatch(updateQuiz({ ...quiz, published: setPublished}));
+        const updatedPublished = !quiz.published;
+   
+        await quizzesClient.updateQuiz({...quiz, published: updatedPublished});
+
+        dispatch(updateQuiz({ ...quiz, published: updatedPublished}));
 
     };
 
     
     return (
         <>
-
             <ProtectedContent><StudentViewButton
                 isStudentView={isStudentView}
                 onClick={toggleView}
@@ -126,7 +135,8 @@ export default function Quizzes({newQuizId, quizzes, setPublished, setNewPublish
                         (<><div className="col mb-3">
 
                             <div className="col">
-                                <button id="wd-quiz-menu-btn" className="btn btn-lg btn-secondary fs-6 rounded-1 float-end">
+                                <button id="wd-quiz-menu-btn" className="btn btn-lg btn-secondary fs-6 rounded-1 float-end"
+                                onClick={()=>toggleAllIcons()}>
                                     <FiMoreVertical /></button>
                             </div>
 
@@ -219,18 +229,20 @@ export default function Quizzes({newQuizId, quizzes, setPublished, setNewPublish
                                                                 }
                                                                 style={{ cursor: "pointer" }}
                                                             />
+
+
+                                                            <span className="me-1 position-relative" onClick={()=>handlePublishToggle(quiz)} >
+
+                                                            {quiz.published ? ( 
+                                                                <FaCheckCircle style={{ top: "0.5px" }} className="me-1 text-success position-relative fs-5" />
+                                                            ) : ( 
+                                                                <CiNoWaitingSign className="fs-5 position-relative me-1" style={{ top: "0.5px" }}/>
+                                                            )}
+                                                            </span>
                                                         </>
                                                     )}
 
                                                     <div className="d-flex align-items-center">
-                                                    <span className="me-1 position-relative" onClick={()=>handlePublishToggle(quiz)} >
-
-                                                    {quiz.published ? ( 
-                                                        <FaCheckCircle style={{ top: "0.5px" }} className="me-1 text-success position-relative fs-5" />
-                                                    ) : ( 
-                                                        <CiNoWaitingSign className="fs-5 position-relative me-1" style={{ top: "0.5px" }}/>
-                                                    )}
-                                                    </span>
 
                                                     <IoEllipsisVertical className="fs-6"onClick={() => toggleIcons(quiz._id)} style={{ cursor: "pointer" }}/>
                                                     </div>

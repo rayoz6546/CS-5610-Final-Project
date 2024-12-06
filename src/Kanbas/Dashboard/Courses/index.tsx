@@ -31,7 +31,7 @@ export default function Courses({ courses }: {
   const {quizzes} = useSelector((state: any) => state.quizzesReducer);
   const newQuizId = Date.now().toString()
   const dispatch = useDispatch()
-  const [setPublished, setNewPublished] = useState(false)
+  // const [setPublished, setNewPublished] = useState(false)
   
   const quiz = quizzes.find((q:any)=>q._id===pathname.split("/")[5])
 
@@ -67,9 +67,9 @@ export default function Courses({ courses }: {
               <Route path="Assignments" element={<Assignments />} />
               <Route path="Assignments/:id" element={<AssignmentEditor />} />
               <Route path="Assignments/new" element={<AssignmentEditor />} />
-              <Route path="Quizzes" element={<Quizzes newQuizId={newQuizId} quizzes={quizzes} setPublished={setPublished} setNewPublished={setNewPublished}/>} />
+              <Route path="Quizzes" element={<Quizzes newQuizId={newQuizId} quizzes={quizzes}/>} />
               <Route path="Quizzes/:qid" element={<QuizDetails />} />
-              <Route path="Quizzes/:qid/Editor/*" element={<EditorNavigation newQuizId={newQuizId} quizzes={quizzes} setPublished={setPublished} setNewPublished={setNewPublished}/>} />
+              <Route path="Quizzes/:qid/Editor/*" element={<EditorNavigation newQuizId={newQuizId} quizzes={quizzes}/>} />
               <Route path="Quizzes/:qid/Preview/*" element={<QuizPreview/>} />
               <Route path="Quizzes/:qid/PreviewResults" element={<QuizPreviewResults />} />
               <Route path="Quizzes/:qid/TakeQuiz" element={<TakeQuiz />} />
