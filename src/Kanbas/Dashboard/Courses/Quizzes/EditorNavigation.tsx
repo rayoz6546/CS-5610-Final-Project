@@ -48,6 +48,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
     const [questionsToUpdate, setQuestionsToUpdate]= useState([])
 
     const [stagedQuestions, setStagedQuestions] = useState<any[]>([]);
+    const [savedQuestions, setSavedQuestions] = useState<any[]>([]); 
 
  
 
@@ -59,31 +60,25 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
         };
         
 
- 
+        useEffect(() => {
+            if (quiz && quiz.questions) {
+                setSavedQuestions([...quiz.questions]);
+                setStagedQuestions([...quiz.questions]);
+            } else {
+                setSavedQuestions([]);
+                setStagedQuestions([]);
+            }
+        }, [quiz]);
 
-    useEffect(() => {
-
-
-        if (quiz && quiz.questions) {
-            setStagedQuestions([...quiz.questions]);
-        }
-    }, [quiz]);
 
     const handleSaveQuestions = () => {
-
+        setSavedQuestions([...stagedQuestions]);
         setStagedQuestions([...stagedQuestions]);
     };
 
     const handleCancelQuestions = () => {
 
-        if (quiz) {
-
-        setStagedQuestions([...quiz.questions]); }
-
-
-        else {
-            setStagedQuestions([])
-        }
+        setStagedQuestions([...savedQuestions]);
     }
 
     const handleUpdateQuiz = async (published:Boolean) => {
