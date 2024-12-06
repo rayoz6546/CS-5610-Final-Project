@@ -1,10 +1,9 @@
 import { useNavigate, useParams } from "react-router";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoEllipsisVertical, IoRocketOutline } from "react-icons/io5";
-import AssignmentControlButtons from "../Assignments/AssignmentsControlButtons"
 import { useEffect, useState } from "react";
 import StudentViewButton from "./StudentViewButton";
-import { FaCircle, FaPlus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 import { FiMoreVertical } from "react-icons/fi";
 import { useViewContext } from "./View";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,15 +12,13 @@ import { FaCheckCircle, FaTrash } from "react-icons/fa";
 import QuizRemove from "./QuizRemove";
 import ProtectedContent from "../../../Account/ProtectedContent";
 import ProtectedContentEnrollment from "../../../Account/ProtectedContentEnrollment";
-import { deleteAllQuestions, setQuestions} from "./questionsReducer";
+import { deleteAllQuestions} from "./questionsReducer";
 
-import GreenCheckmark from "../Modules/GreenCheckmark";
 import { CiNoWaitingSign } from "react-icons/ci";
 import * as coursesClient from "../client";
 import * as quizzesClient from "../Quizzes/client";
 import * as questionsClient from "../Quizzes/questionsClient";
 import { GrEdit } from "react-icons/gr";
-import { setResults } from "./resultsReducer";
 import * as resultsClient from "./resultsClient";
 
 export default function Quizzes({newQuizId, quizzes}:{newQuizId:any, quizzes:any}) {
@@ -33,9 +30,7 @@ export default function Quizzes({newQuizId, quizzes}:{newQuizId:any, quizzes:any
     const { currentUser } = useSelector((state: any) => state.accountReducer);
 
     const [visibleIcons, setVisibleIcons] = useState<Record<string, boolean>>({});
-    const {results} = useSelector((state:any)=> state.resultsReducer)
     const [scores, setScores] = useState<Record<string, number | null>>({}); 
-    const {questions} = useSelector((state:any)=> state.questionsReducer)
 
 
     const toggleAllIcons = () => {

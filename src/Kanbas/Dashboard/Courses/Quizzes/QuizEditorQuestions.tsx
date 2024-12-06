@@ -1,23 +1,18 @@
 import { FaPlus } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { addQuestion, deleteQuestion, updateQuestion, resetQuestions, setQuestions } from "./questionsReducer";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Editor from 'react-simple-wysiwyg';
 import { FaTrash } from "react-icons/fa";
 import { BsGripVertical } from "react-icons/bs";
 import { FaPencil } from "react-icons/fa6";
-import * as quizzesClient from "../Quizzes/client";
-import * as questionsClient from "../Quizzes/questionsClient";
 
 export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToDelete, questionsToAdd, questionsToUpdate, setNewQuizQuestions,handleSaveQuestions,setQuestionsToDelete, setQuestionsToAdd, setQuestionsToUpdate, handleCancelQuestions,stagedQuestions, setStagedQuestions}:
     {quiz:any, setQuizQuestions:any, setNewQuizQuestions:any,questionsToDelete:any, questionsToAdd:any, questionsToUpdate:any, setQuestionsToDelete:any, setQuestionsToAdd:any, setQuestionsToUpdate:any, handleSaveQuestions:()=>void,handleCancelQuestions:()=>void
         stagedQuestions:any, setStagedQuestions:any
     }) {
     const { cid, qid } = useParams()
-    const dispatch = useDispatch()
 
-    const { questions } = useSelector((state: any) => state.questionsReducer); 
 
 
     
@@ -61,10 +56,6 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
         setNewQuestionCorrectAnswer(newQuestionAnswers[index]);
     };
 
-    // const handleCorrectAnswerChangeList = ()=> {
-    //     setNewQuestionCorrectAnswerList([...newQuestionAnswers, ""])
-
-    // }
 
     const handleCorrectAnswerChangeList = (index: number, value: string) => {
         setNewQuestionCorrectAnswerList((prevList) => {

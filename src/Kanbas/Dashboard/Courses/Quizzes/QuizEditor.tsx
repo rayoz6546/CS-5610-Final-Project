@@ -3,7 +3,6 @@ import { FaCheckCircle } from "react-icons/fa";
 import { FiMoreVertical } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router";
-import { useSearchParams } from "react-router-dom";
 
 export default function QuizEditor() {
     const { pathname } = useLocation();

@@ -7,8 +7,7 @@ import { FaRegQuestionCircle } from "react-icons/fa";
 import * as questionsClient from "./questionsClient";
 import * as resultsClient from "./resultsClient";
 import { setQuestions } from "./questionsReducer";
-import { setQuizzes } from "./quizzesReducer";
-import * as coursesClient from "../client";
+
 
 
 export default function TakeQuiz() {

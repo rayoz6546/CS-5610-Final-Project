@@ -18,12 +18,12 @@ const resultsSlice = createSlice({
 
 
 
-            // Find the previous result for the same user and quizId
+         
             const previousResult = state.results.find(
               (result:any ) => result.userId === userId && result.quizId === quizId
             );
       
-            // Calculate the new attempt number based on the previous result
+            
             const newAttempt = previousResult ? previousResult.attempt + 1 : 1;
 
             const newResult: any = {
@@ -44,7 +44,7 @@ const resultsSlice = createSlice({
                   !(result.userId === newResult.userId && result.quizId === newResult.quizId)
               );
         
-              // Add the new result (latest attempt) to the filtered results
+
               state.results = [...updatedResults, newResult];
             },  
 
