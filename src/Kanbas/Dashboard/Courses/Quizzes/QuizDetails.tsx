@@ -30,7 +30,7 @@ export default function QuizDetails() {
     const {results} = useSelector((state:any)=> state.resultsReducer)
     const result = results.find((res:any)=>res.quizId === qid && res.courseId=== cid && res.userId === currentUser._id)
 
-    const { questions } = useSelector((state: any) => state.questionsReducer); 
+
 
     const fetchResults = async () => {
         const results = await resultsClient.fetchResults(qid as string, currentUser._id)
