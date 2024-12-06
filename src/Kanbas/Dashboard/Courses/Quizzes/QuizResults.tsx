@@ -252,9 +252,15 @@ export default function QuizResults() {
                                     </li>
 
                                     {quiz.show_correct_answers && <li className="list-group-item border border-0 ms-4 mb-3" style={{color:"grey", fontWeight:"bold"}}>correct answer(s):<> </>
-                                    {Array.isArray(question.correct_answer) 
+                                    {Array.isArray(question?.correct_answer) 
                                         ? <>
-                                            {question.correct_answer[0]}, {question.correct_answer[1]}
+                                            {question.correct_answer.map((a:any, i:any)=> 
+                                                <span key={i}>
+                                                {a}
+                                                {i < question.correct_answer.length - 1 ? ", " : ""}
+                                                </span>
+                                            )}
+
                                             </>
                                         : question.correct_answer}
                                     </li>}
