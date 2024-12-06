@@ -104,7 +104,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
             }
         });
 
-
+        setCurrentEditingQuestionId(null)
         resetQuestion();
         setShowQuestionInput(false);
 

@@ -49,9 +49,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
 
     const [stagedQuestions, setStagedQuestions] = useState<any[]>([]);
 
-    const { questions } = useSelector((state: any) => state.questionsReducer); 
-
-    const quiz_id = qid || newQuizId
+ 
 
     const fetchQuizzes = async () => {
         const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
@@ -61,10 +59,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
         };
         
 
-    const fetchQuestions = async () => {
-        const questions = await questionsClient.fetchQuestions(qid as string);
-        dispatch(setQuestions(questions));
-      };
+ 
 
     useEffect(() => {
 
@@ -201,7 +196,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
 
     return (
         <div id="wd-quiz-editor-navigation">
-            <QuizEditor />
+            <QuizEditor stagedQuestions={stagedQuestions} setStagedQuestions={setStagedQuestions}/>
             <Routes>
                 <Route path={`/Kanbas/Courses/${cid}/Quizzes/${qid}/Editor/*`} element={<Navigate to="Details" />} />
                 <Route path="Details" element={<QuizEditorDetails 
