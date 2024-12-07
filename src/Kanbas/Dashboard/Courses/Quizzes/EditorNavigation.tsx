@@ -80,6 +80,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
     const handleCancelQuestions = () => {
 
         setStagedQuestions([...savedQuestions]);
+    
     }
 
     const handleUpdateQuiz = async (published:Boolean) => {

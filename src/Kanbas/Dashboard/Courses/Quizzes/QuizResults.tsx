@@ -189,7 +189,7 @@ export default function QuizResults() {
                                                                     <p>{index+1}.</p>
                                                                 </div>
                                                                 <div className="col-auto">
-                                                                    <input id={`wd-answer-${index}`} type="checkbox" className="me-3"checked={result.answers[question._id]===answer} disabled/>
+                                                                    <input id={`wd-answer-${index}`} type="radio" className="me-3"checked={result.answers[question._id]===answer} disabled/>
                                                                 </div>
                                                                 <div className="col-auto">
                                                                 <label htmlFor={`wd-answer-${index}`} className="form-label">{`${answer}`}</label>

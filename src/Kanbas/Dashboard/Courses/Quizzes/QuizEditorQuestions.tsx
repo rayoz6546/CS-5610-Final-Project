@@ -30,7 +30,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
     const [currentEditingQuestionId, setCurrentEditingQuestionId] = useState(null);
 
     const [correctAnswerIsList, setcorrectAnswerIsList] = useState(false);
-    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(null);
+
 
 //----------------------reducer functions for answers (adding/editing/deleting possible answers for each question)--------------//
     const handleAnswerChange = (index: number, value: string) => {
@@ -54,7 +54,6 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
 
     const handleCorrectAnswerChange = (index: number) => {
         setNewQuestionCorrectAnswer(newQuestionAnswers[index]);
-        setSelectedAnswerIndex(prevIndex => (prevIndex === index ? null : index));
     };
 
 
@@ -126,7 +125,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
         setNewQuestionAnswers([""]);
         setNewQuestionCorrectAnswer("");
         setNewQuestionCorrectAnswerList([""]);
-        setSelectedAnswerIndex(null)
+
     }
 
     const handleEditQuestion = (question: any) => {
@@ -246,14 +245,15 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
                                 <div className="row">
                                     <h5 style={{ fontWeight: "bold" }}>Answers:</h5>
                                 </div>
+             
                                 {newQuestionAnswers.map((answer, index) => (
                                     <div className="row mb-1" key={index}>
                                         <ul className="list-group rounded-0 border">
                                             <li className="list-group-item border-0">
                                                 <div className="row">
                                                     <div className="col-auto" >
-                                                        <input type="radio" className="me-3" id={`wd-answer-${index}`}
-                                                            checked={selectedAnswerIndex === index}
+                                                        <input type="radio" name="radiob" className="me-3" id={`wd-answer-${index}`}
+                                                            checked={(answer!=="") && newQuestionCorrectAnswer===answer}
                                                             onChange={() => handleCorrectAnswerChange(index)}
                                                         />
                                                     </div>
@@ -405,7 +405,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
                         <div className="row mt-2 mb-4">
                             <div className="col">
 
-                                <button className="btn btn-secondary rounded-1 me-2" type="submit" onClick={() => { resetQuestion() ;setShowQuestionInput(false); }}>Cancel</button>
+                                <button className="btn btn-secondary rounded-1 me-2" type="submit" onClick={() => { resetQuestion() ;setShowQuestionInput(false); setCurrentEditingQuestionId(null)}}>Cancel</button>
 
                                 <button className="btn btn-danger rounded-1" type="submit"
                                     onClick={
