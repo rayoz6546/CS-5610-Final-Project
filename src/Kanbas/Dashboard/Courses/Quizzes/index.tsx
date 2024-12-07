@@ -97,6 +97,7 @@ export default function Quizzes({newQuizId, quizzes}:{newQuizId:any, quizzes:any
 
 
     useEffect(() => {
+        dispatch(setQuizzes([]))
         fetchQuizzes()
 
     }, []); 

@@ -47,7 +47,7 @@ export default function QuizDetails() {
 
 
      useEffect(() => {
-
+        dispatch(setResults([]))
         fetchResults()
 
 
