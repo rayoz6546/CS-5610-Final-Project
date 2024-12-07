@@ -8,27 +8,28 @@ import { Link } from "react-router-dom";
 
 
 export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, setQuizAvailableUntil, setQuizDueDate,setQuizScore,
-    setQuizPoints, setQuizNumberAttempts, setQuizType, setQuizAssignmentGroup, setQuizShuffle, setQuizTimeLimit, setQuizMultipleAttempts,
+    setQuizPoints, setQuizNumberAttempts, setQuizType, setQuizAssignmentGroup, setQuizShuffle, setQuizTimeLimit, setQuizMultipleAttempts, showCorrectAnswersWhen,
     setQuizNumberQuestions, setQuizShowCorrectAnswers, setQuizAccessCode, setQuizOneQuestionAtATime, setQuizWebcamRequired, setQuizAvailability,
-    setQuizLockQuestions, setQuizDescription, setNewQuizTitle, setNewQuizAvailableFrom, setNewQuizAvailableUntil, setNewQuizDueDate,setNewQuizScore,
+    setQuizLockQuestions, setQuizDescription, setNewQuizTitle, setNewQuizAvailableFrom, setNewQuizAvailableUntil, setNewQuizDueDate,setNewQuizScore, setShowCorrectAnswersWhen,
     setNewQuizPoints, setNewQuizNumberAttempts, setNewQuizType, setNewQuizAssignmentGroup, setNewQuizShuffle, setNewQuizTimeLimit, setNewQuizMultipleAttempts,
     setNewQuizNumberQuestions, setNewQuizShowCorrectAnswers, setNewQuizAccessCode, setNewQuizOneQuestionAtATime, setNewQuizWebcamRequired, setNewQuizAvailability,setPublished, setNewPublished,
     setNewQuizLockQuestions, setNewQuizDescription, quizzes, newQuizId, handleUpdateQuiz, handleCancelQuiz}:{
     setQuizTitle:any, setQuizAvailableFrom:any, setQuizAvailableUntil:any, setQuizDueDate:any,setQuizScore:any,
-    setQuizPoints:any, setQuizNumberAttempts:any, setQuizType:any, setQuizAssignmentGroup:any, setQuizShuffle:any, setQuizTimeLimit:any, setQuizMultipleAttempts:any,
+    setQuizPoints:any, setQuizNumberAttempts:any, setQuizType:any, setQuizAssignmentGroup:any, setQuizShuffle:any, setQuizTimeLimit:any, setQuizMultipleAttempts:any, showCorrectAnswersWhen:any,
     setQuizNumberQuestions:any, setQuizShowCorrectAnswers:any, setQuizAccessCode:any, setQuizOneQuestionAtATime:any, setQuizWebcamRequired:any, 
     setQuizLockQuestions:any, setQuizDescription:any, setQuizAvailability: any, setNewQuizAvailability:any,
     setNewQuizTitle:any, setNewQuizAvailableFrom:any, setNewQuizAvailableUntil:any, setNewQuizDueDate:any,setNewQuizScore:any,
-    setNewQuizPoints:any, setNewQuizNumberAttempts:any, setNewQuizType:any, setNewQuizAssignmentGroup:any, setNewQuizShuffle:any, setNewQuizTimeLimit:any, setNewQuizMultipleAttempts:any,
+    setNewQuizPoints:any, setNewQuizNumberAttempts:any, setNewQuizType:any, setNewQuizAssignmentGroup:any, setNewQuizShuffle:any, setNewQuizTimeLimit:any, setNewQuizMultipleAttempts:any, setShowCorrectAnswersWhen:any,
     setNewQuizNumberQuestions:any, setNewQuizShowCorrectAnswers:any, setNewQuizAccessCode:any, setNewQuizOneQuestionAtATime:any, setNewQuizWebcamRequired:any, setPublished:any, setNewPublished:any,
     setNewQuizLockQuestions:any, setNewQuizDescription:any, quizzes:any, newQuizId:any, handleUpdateQuiz:(b:boolean)=>void, handleCancelQuiz:()=>void
     }
 ) {
     const { cid, qid } = useParams()
   
-    const quiz_id = qid || newQuizId
 
     const [isTimeLimitEnabled, setIsTimeLimitEnabled] = useState(false);
+
+
 
     const calculateAvailability = (dueDate: any, availableFrom: any, availableUntil: any) => {
         const today = new Date();
@@ -68,6 +69,15 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
 
     }, [setQuizDueDate, setQuizAvailableFrom, setQuizAvailableUntil]);
 
+    useEffect(() => {
+
+        if (setQuizShowCorrectAnswers) {
+            setShowCorrectAnswersWhen("Immediately");
+        } else {
+            setShowCorrectAnswersWhen("");
+        }
+
+    }, [setQuizShowCorrectAnswers]);
 
 
     return (
@@ -156,12 +166,38 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
                                                     checked = {setQuizShowCorrectAnswers} onChange={(e) => setNewQuizShowCorrectAnswers((prev: any) => !prev)}/>
                                                         <label htmlFor="wd-quiz-editor-show">Show Correct Answers</label></div>
                                                 </div>
-{/* 
-                                                <div className="row">
-                                                    <div className="col">When to Show Correct Answers:</div>
-                                                    <div className="input-group"><input type="datetime" name="wd-quiz-editor-show" id="wd-quiz-editor-show" className="form-control" 
-                                                    value = {setQuizShowCorrectAnswers} onChange={(e) => setNewQuizShowCorrectAnswers(e.target.value)} /><span className="input-group-text"><MdDateRange /></span></div>
-                                                </div> */}
+
+                                                {setQuizShowCorrectAnswers ? 
+                                                <div className="col">
+                                                    <select
+                                                        id="wd-quiz-editor-show-when"
+                                                        className="form-select"
+                                                        value={showCorrectAnswersWhen}
+                                                        onChange={(e) => {setShowCorrectAnswersWhen(e.target.value)
+                                                        }}
+                                                    >
+                                                        <option value="Immediately">Immediately</option>
+                                                        <option value="Choose Date">Choose Date</option>
+                                                        {showCorrectAnswersWhen && (showCorrectAnswersWhen !== "Choose Date" && showCorrectAnswersWhen !== "Immediately") && (
+                                                        <option value={showCorrectAnswersWhen}>{showCorrectAnswersWhen}</option> // this will display the selected date
+                                                    )}
+                                                    </select>
+
+                                                    {showCorrectAnswersWhen === "Choose Date" && (
+                                                        <div className="input-group mt-2">
+                                                            <input
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={showCorrectAnswersWhen !== "Choose Date" ? "" : showCorrectAnswersWhen}
+                                                            
+                                                                onChange={(e) => setShowCorrectAnswersWhen(e.target.value)}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div> : null}
+
+                                                
+  
                                             </li>
 
                                             <li className="list-group-item border-0">

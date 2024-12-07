@@ -34,8 +34,6 @@ export default function QuizDetails() {
 
     const fetchResults = async () => {
         const results = await resultsClient.fetchResults(qid as string, currentUser._id)
-        console.log("crr")
-        console.log(results)
         dispatch(setResults(results))
      }
  
@@ -242,7 +240,7 @@ export default function QuizDetails() {
 
 
                                                 <li className="list-group-item border-0 text-nowrap">
-                                                    <div className="col-auto">{`${quiz.shuffle_answers}`}</div>
+                                                    <div className="col-auto">{quiz.shuffle_answers ? "Yes" : "No"}</div>
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
@@ -250,7 +248,7 @@ export default function QuizDetails() {
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
-                                                    <div className="col-auto">{`${quiz.multiple_attempts}`}</div>
+                                                    <div className="col-auto">{quiz.multiple_attempts ? "Yes" : "No"}</div>
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
@@ -258,23 +256,23 @@ export default function QuizDetails() {
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
-                                                    <div className="col-auto">{`${quiz.show_correct_answers}`}</div>
+                                                    <div className="col-auto">{quiz.show_correct_answers ? quiz.show_correct_answers_when : "No"}</div>
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
-                                                    <div className="col-auto">{`${quiz.access_code}`}</div>
+                                                    <div className="col-auto">{quiz.access_code==="" ? (<><br /></>) : quiz.access_code}</div>
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
-                                                    <div className="col-auto">{`${quiz.one_question_at_a_time}`}</div>
+                                                    <div className="col-auto">{quiz.one_question_at_a_time ? "Yes" : "No"}</div>
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
-                                                    <div className="col-auto">{`${quiz.webcam_required}`}</div>
+                                                    <div className="col-auto">{quiz.webcam_required ? "Yes" : "No"}</div>
                                                 </li>
 
                                                 <li className="list-group-item border-0 text-nowrap">
-                                                    <div className="col-auto">{`${quiz.lock_questions_after_answering}`}</div>
+                                                    <div className="col-auto">{quiz.lock_questions_after_answering ? "Yes" : "No"}</div>
                                                 </li>
                                             </ul>
                                         </div>

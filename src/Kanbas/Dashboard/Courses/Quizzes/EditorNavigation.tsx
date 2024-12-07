@@ -34,7 +34,8 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
     const [setQuizMultipleAttempts, setNewQuizMultipleAttempts] = useState(quiz ? quiz.multiple_attempts : false)
     const [setQuizNumberAttempts, setNewQuizNumberAttempts] = useState(quiz ? quiz.number_attempts : "1")
     const [setQuizShowCorrectAnswers, setNewQuizShowCorrectAnswers] = useState(quiz ? quiz.show_correct_answers : true)
-    const [setQuizAccessCode, setNewQuizAccessCode] = useState(quiz ? quiz.access_code : "None")
+    const [showCorrectAnswersWhen, setShowCorrectAnswersWhen] = useState(quiz? (quiz.show_correct_answers ? "Immediately" : ""):"");
+    const [setQuizAccessCode, setNewQuizAccessCode] = useState(quiz ? quiz.access_code : "")
     const [setQuizOneQuestionAtATime, setNewQuizOneQuestionAtATime] = useState(quiz ? quiz.one_question_at_a_time : true)
     const [setQuizWebcamRequired, setNewQuizWebcamRequired] = useState(quiz ? quiz.webcam_required : false)
     const [setQuizLockQuestions, setNewQuizLockQuestions] = useState(quiz ? quiz.lock_questions_after_answering : false)
@@ -90,6 +91,12 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
 
         const newQuizPoints = stagedQuestions.reduce((total: number, question: any) => total + parseInt(question.points, 10), 0);
 
+        let show_when = ""
+
+        if (setQuizShowCorrectAnswers) { 
+            if (showCorrectAnswersWhen==="Immediately" || showCorrectAnswersWhen==="Choose Date") {show_when="Immediately"}
+            else {show_when = showCorrectAnswersWhen}
+        }
 
         if (quiz) {
                 const updatedQuiz = {
@@ -110,6 +117,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
                 multiple_attempts: setQuizMultipleAttempts,
                 number_attempts: setQuizNumberAttempts,
                 show_correct_answers: setQuizShowCorrectAnswers,
+                show_correct_answers_when: show_when,
                 access_code: setQuizAccessCode,
                 one_question_at_a_time: setQuizOneQuestionAtATime,
                 webcam_required: setQuizWebcamRequired,
@@ -146,6 +154,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
                 multiple_attempts: setQuizMultipleAttempts,
                 number_attempts: setQuizNumberAttempts,
                 show_correct_answers: setQuizShowCorrectAnswers,
+                show_correct_answers_when: showCorrectAnswersWhen,
                 access_code: setQuizAccessCode,
                 one_question_at_a_time: setQuizOneQuestionAtATime,
                 webcam_required: setQuizWebcamRequired,
@@ -197,9 +206,9 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
                 <Route path="Details" element={<QuizEditorDetails 
                 setQuizTitle={setQuizTitle} setQuizAvailableFrom={setQuizAvailableFrom} setQuizAvailableUntil={setQuizAvailableUntil} setQuizDueDate={setQuizDueDate} setQuizScore={setQuizScore}
                 setQuizPoints={setQuizPoints} setQuizNumberAttempts={setQuizNumberAttempts} setQuizType={setQuizType} setQuizAssignmentGroup={setQuizAssignmentGroup} setQuizShuffle={setQuizShuffle} setQuizTimeLimit={setQuizTimeLimit} setQuizMultipleAttempts={setQuizMultipleAttempts}
-                setQuizNumberQuestions={setQuizNumberQuestions} setQuizShowCorrectAnswers={setQuizShowCorrectAnswers} setQuizAccessCode={setQuizAccessCode} setQuizOneQuestionAtATime={setQuizOneQuestionAtATime} setQuizWebcamRequired={setQuizWebcamRequired} 
+                setQuizNumberQuestions={setQuizNumberQuestions} setQuizShowCorrectAnswers={setQuizShowCorrectAnswers} setQuizAccessCode={setQuizAccessCode} setQuizOneQuestionAtATime={setQuizOneQuestionAtATime} setQuizWebcamRequired={setQuizWebcamRequired} showCorrectAnswersWhen={showCorrectAnswersWhen}
                 setQuizLockQuestions={setQuizLockQuestions} setQuizDescription={setQuizDescription} setQuizAvailability={setQuizAvailability} setPublished={setPublished} setNewPublished={setNewPublished}
-                setNewQuizTitle={setNewQuizTitle} setNewQuizAvailableFrom={setNewQuizAvailableFrom} setNewQuizAvailableUntil={setNewQuizAvailableUntil} setNewQuizDueDate={setNewQuizDueDate} setNewQuizScore={setNewQuizScore}
+                setNewQuizTitle={setNewQuizTitle} setNewQuizAvailableFrom={setNewQuizAvailableFrom} setNewQuizAvailableUntil={setNewQuizAvailableUntil} setNewQuizDueDate={setNewQuizDueDate} setNewQuizScore={setNewQuizScore} setShowCorrectAnswersWhen={setShowCorrectAnswersWhen}
                 setNewQuizPoints={setNewQuizPoints} setNewQuizNumberAttempts={setNewQuizNumberAttempts} setNewQuizType={setNewQuizType} setNewQuizAssignmentGroup={setNewQuizAssignmentGroup} setNewQuizShuffle={setNewQuizShuffle} setNewQuizTimeLimit={setNewQuizTimeLimit} setNewQuizMultipleAttempts={setNewQuizMultipleAttempts}
                 setNewQuizNumberQuestions={setNewQuizNumberQuestions} setNewQuizShowCorrectAnswers={setNewQuizShowCorrectAnswers} setNewQuizAccessCode={setNewQuizAccessCode} setNewQuizOneQuestionAtATime={setNewQuizOneQuestionAtATime} setNewQuizWebcamRequired={setNewQuizWebcamRequired} 
                 setNewQuizLockQuestions={setNewQuizLockQuestions} setNewQuizDescription={setNewQuizDescription} setNewQuizAvailability={setNewQuizAvailability}

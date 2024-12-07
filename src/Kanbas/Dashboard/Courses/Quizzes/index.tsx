@@ -221,7 +221,7 @@ export default function Quizzes({newQuizId, quizzes}:{newQuizId:any, quizzes:any
                                                                 className="me-2 text-primary"
                                                                 onClick={() =>
                                                                     navigate(
-                                                                        `/Kanbas/Courses/${cid}/Quizzes/${quiz._id}/Editor/Details`
+                                                                        `/Kanbas/Courses/${cid}/Quizzes/${quiz._id}`
                                                                     )
                                                                 }
                                                                 style={{ cursor: "pointer" }}

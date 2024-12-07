@@ -30,7 +30,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
     const [currentEditingQuestionId, setCurrentEditingQuestionId] = useState(null);
 
     const [correctAnswerIsList, setcorrectAnswerIsList] = useState(false);
-
+    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(null);
 
 //----------------------reducer functions for answers (adding/editing/deleting possible answers for each question)--------------//
     const handleAnswerChange = (index: number, value: string) => {
@@ -54,6 +54,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
 
     const handleCorrectAnswerChange = (index: number) => {
         setNewQuestionCorrectAnswer(newQuestionAnswers[index]);
+        setSelectedAnswerIndex(prevIndex => (prevIndex === index ? null : index));
     };
 
 
@@ -250,7 +251,8 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
                                             <li className="list-group-item border-0">
                                                 <div className="row">
                                                     <div className="col-auto" >
-                                                        <input type="checkbox" className="me-3" id={`wd-answer-${index}`}
+                                                        <input type="radio" className="me-3" id={`wd-answer-${index}`}
+                                                            checked={selectedAnswerIndex === index}
                                                             onChange={() => handleCorrectAnswerChange(index)}
                                                         />
                                                     </div>

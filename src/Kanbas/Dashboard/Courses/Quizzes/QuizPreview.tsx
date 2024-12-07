@@ -268,7 +268,7 @@ export default function TakeQuiz() {
                                         <hr className="ms-4" style={{width:"95%"}}/>
                                         <div className="row">
                                             <div className="col-auto ms-5" >
-                                                <input type="checkbox" 
+                                                <input type="radio" 
                                                 checked={userAnswers[question[currentQuestionIndex]._id] === answer}
                                                 onChange={() => handleAnswerSelection(question[currentQuestionIndex]._id, answer)}
                                                 className="me-3" id={`wd-answer-${index}`}/>
