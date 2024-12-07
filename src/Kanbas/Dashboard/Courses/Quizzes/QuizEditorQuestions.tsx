@@ -356,7 +356,32 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
                         </div>
 
                         <div className="row mb-4">
-                            <Editor value={newQuestionDescription||"______"} onChange={(e) => setNewQuestionDescription(e.target.value)} />
+                            <Editor value={newQuestionDescription||"______"} 
+
+                            onChange={(e) => {
+                                const updatedDescription = e.target.value;
+                                if (!updatedDescription.trim() || !updatedDescription.includes("______")) {
+                                    setNewQuestionDescription("______");
+                                } else {
+                                    setNewQuestionDescription(updatedDescription);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                const target = e.target as HTMLTextAreaElement;
+                                if (!target || typeof target.selectionStart !== "number" || typeof target.selectionEnd !== "number") {
+                                    return;
+                                }
+                                const { selectionStart, selectionEnd } = target;
+                                const text = target.value;
+                        
+                                if (
+                                    (e.key === "Backspace" && text.slice(Math.max(0, selectionStart - 1), selectionEnd).includes("______")) ||
+                                    (e.key === "Delete" && text.slice(selectionStart, selectionEnd + 1).includes("______"))
+                                ) {
+                                    e.preventDefault();
+                                }
+                            }}
+                            />
 
                         </div>
                                 <div className="row mb-3">

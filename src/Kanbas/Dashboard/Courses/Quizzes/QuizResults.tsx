@@ -42,8 +42,10 @@ export default function QuizResults() {
         const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
  
         dispatch(setQuizzes(quizzes));
-
         };
+
+    const today = new Date()
+
 
     useEffect(() => {
 
@@ -101,6 +103,12 @@ export default function QuizResults() {
                 </div>
                 <div className="row">
                     <p>This attempt took {result.timetaken}</p>
+                </div>
+
+
+                <div className="row">
+                    <p>{(quiz.show_correct_answers && quiz.show_correct_answers_when!=="Immediately" && quiz.show_correct_answers_when!==today.toISOString().slice(0, 10)) ? <>Correct answers are locked until {quiz.show_correct_answers_when}</> : null}</p>
+
                 </div>
 
                 {/* <div className="row mb-2">
@@ -251,7 +259,7 @@ export default function QuizResults() {
 
                                     </li>
 
-                                    {quiz.show_correct_answers && <li className="list-group-item border border-0 ms-4 mb-3" style={{color:"grey", fontWeight:"bold"}}>correct answer(s):<> </>
+                                    {(quiz.show_correct_answers && (quiz.show_correct_answers_when==="Immediately" || quiz.show_correct_answers_when===today.toISOString().slice(0, 10))) && <li className="list-group-item border border-0 ms-4 mb-3" style={{color:"grey", fontWeight:"bold"}}>correct answer(s):<> </>
                                     {Array.isArray(question?.correct_answer) 
                                         ? <>
                                             {question.correct_answer.map((a:any, i:any)=> 

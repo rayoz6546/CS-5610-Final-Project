@@ -69,15 +69,16 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
 
     }, [setQuizDueDate, setQuizAvailableFrom, setQuizAvailableUntil]);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (setQuizShowCorrectAnswers) {
-            setShowCorrectAnswersWhen("Immediately");
-        } else {
-            setShowCorrectAnswersWhen("");
-        }
+    //     if (setQuizShowCorrectAnswers) {
+    //         if (showCorrectAnswersWhen==="Immediately" || showCorrectAnswersWhen==="Choose Date")
+    //         setShowCorrectAnswersWhen("Immediately");
+    //     } else {
+    //         setShowCorrectAnswersWhen("");
+    //     }
 
-    }, [setQuizShowCorrectAnswers]);
+    // }, [setQuizShowCorrectAnswers]);
 
 
     return (
@@ -169,6 +170,7 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
 
                                                 {setQuizShowCorrectAnswers ? 
                                                 <div className="col">
+                                    
                                                     <select
                                                         id="wd-quiz-editor-show-when"
                                                         className="form-select"
@@ -179,7 +181,7 @@ export default function QuizEditorDetails({setQuizTitle, setQuizAvailableFrom, s
                                                         <option value="Immediately">Immediately</option>
                                                         <option value="Choose Date">Choose Date</option>
                                                         {showCorrectAnswersWhen && (showCorrectAnswersWhen !== "Choose Date" && showCorrectAnswersWhen !== "Immediately") && (
-                                                        <option value={showCorrectAnswersWhen}>{showCorrectAnswersWhen}</option> // this will display the selected date
+                                                        <option value={showCorrectAnswersWhen}>{showCorrectAnswersWhen}</option> 
                                                     )}
                                                     </select>
 

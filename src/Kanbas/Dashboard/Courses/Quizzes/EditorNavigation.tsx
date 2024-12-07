@@ -34,7 +34,7 @@ export default function EditorNavigation({newQuizId, quizzes}:{newQuizId:any, qu
     const [setQuizMultipleAttempts, setNewQuizMultipleAttempts] = useState(quiz ? quiz.multiple_attempts : false)
     const [setQuizNumberAttempts, setNewQuizNumberAttempts] = useState(quiz ? quiz.number_attempts : "1")
     const [setQuizShowCorrectAnswers, setNewQuizShowCorrectAnswers] = useState(quiz ? quiz.show_correct_answers : true)
-    const [showCorrectAnswersWhen, setShowCorrectAnswersWhen] = useState(quiz? (quiz.show_correct_answers ? "Immediately" : ""):"");
+    const [showCorrectAnswersWhen, setShowCorrectAnswersWhen] = useState(quiz? (quiz.show_correct_answers_when==="" ? "Immediately" : quiz.show_correct_answers_when) : "Immediately");
     const [setQuizAccessCode, setNewQuizAccessCode] = useState(quiz ? quiz.access_code : "")
     const [setQuizOneQuestionAtATime, setNewQuizOneQuestionAtATime] = useState(quiz ? quiz.one_question_at_a_time : true)
     const [setQuizWebcamRequired, setNewQuizWebcamRequired] = useState(quiz ? quiz.webcam_required : false)
