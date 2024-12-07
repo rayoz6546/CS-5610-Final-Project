@@ -34,6 +34,8 @@ export default function QuizDetails() {
 
     const fetchResults = async () => {
         const results = await resultsClient.fetchResults(qid as string, currentUser._id)
+        console.log("crr")
+        console.log(results)
         dispatch(setResults(results))
      }
  
@@ -45,8 +47,9 @@ export default function QuizDetails() {
 
 
      useEffect(() => {
-        if (result) {
-        fetchResults()}
+
+        fetchResults()
+
 
          
      }, [results, result]);
@@ -61,7 +64,7 @@ export default function QuizDetails() {
 
             <ProtectedContentEnrollment>
 
-
+            
             <>{quizzes
                     .filter((quiz: any) => quiz.course == cid)
                     .filter((quiz: any) => quiz._id == qid)
@@ -81,9 +84,10 @@ export default function QuizDetails() {
                                     </tbody>
                                 </table>
                             </div>
-             
+
                     {(quiz.availability==="Available" || quiz.availability==="") && (
                         <>
+                        
                             {(result?.attempt==null )&& (
                                 <div className="row-auto d-flex justify-content-center">
                                 <button id="wd-takequiz-btn" className="btn btn-lg btn-danger fs-6 rounded-1 me-1"
