@@ -126,6 +126,7 @@ export default function QuizEditorQuestions({quiz, setQuizQuestions,questionsToD
         setNewQuestionAnswers([""]);
         setNewQuestionCorrectAnswer("");
         setNewQuestionCorrectAnswerList([""]);
+        setSelectedAnswerIndex(null)
     }
 
     const handleEditQuestion = (question: any) => {
