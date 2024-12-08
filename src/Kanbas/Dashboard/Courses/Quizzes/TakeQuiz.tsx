@@ -33,6 +33,19 @@ export default function TakeQuiz() {
 
     const [userAnswers, setUserAnswers] = useState([]);
 
+    const date_submit = () => {
+        const now = new Date();
+        const month = now.toLocaleString('en-US', { month: 'short' });
+        const day = now.getDate(); 
+    
+        const timeOptions: Intl.DateTimeFormatOptions = {
+            hour: '2-digit',
+            minute: '2-digit',
+        };
+        const formattedTime = now.toLocaleTimeString('en-US', timeOptions);
+        return `${month} ${day} at ${formattedTime}`;
+    }
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const questionRefs = useRef<any[]>([]);
 
@@ -60,6 +73,7 @@ export default function TakeQuiz() {
             answers: userAnswers,
             timetaken: calculateTimeTaken().toString(),
             attempt: 1,
+            submitted_date: date_submit(),
         }
 
 
@@ -76,6 +90,7 @@ export default function TakeQuiz() {
                 answers: userAnswers,
                 timetaken: calculateTimeTaken().toString(),
                 attempt: parseInt(result.attempt)+1,
+                submitted_date: date_submit(),
             }
             await resultsClient.updateResults(updatedResult);
             dispatch(addResults(updatedResult));
@@ -258,7 +273,7 @@ export default function TakeQuiz() {
                                         <hr className="ms-4" style={{width:"95%"}}/>
                                         <div className="row">
                                             <div className="col-auto ms-5" >
-                                                <input type="checkbox" 
+                                                <input type="radio" 
                                                 checked={userAnswers[question[currentQuestionIndex]._id] === answer}
                                                 onChange={() => handleAnswerSelection(question[currentQuestionIndex]._id, answer)}
                                                 className="me-3" id={`wd-answer-${index}`}/>

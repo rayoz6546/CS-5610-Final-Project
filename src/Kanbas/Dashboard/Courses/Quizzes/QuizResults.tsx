@@ -99,11 +99,11 @@ export default function QuizResults() {
                     </div>
 
                 <div className="row">
-                    <p>Score for this Quiz:  <strong style={{fontSize:"20px"}}>{result.score}</strong> out of {quiz.points}</p>
+                    <p>Score for this Quiz:  <strong style={{fontSize:"20px"}}>{result.score}</strong> out of {quiz.points} <br />
+                    Submitted {result.submitted_date} <br />
+                    This attempt took {result.timetaken}</p>
                 </div>
-                <div className="row">
-                    <p>This attempt took {result.timetaken}</p>
-                </div>
+
 
 
                 <div className="row">
